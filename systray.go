@@ -1,7 +1,6 @@
 /*
-Package systray is a cross platfrom Go library to place an icon and menu in the
-notification area.
-Supports Windows, Mac OSX and Linux currently.
+Package systray is a cross-platform Go library to place an icon and menu in the notification area.
+
 Methods can be called from any goroutine except Run(), which should be called
 at the very beginning of main() to lock at main thread.
 */
@@ -51,13 +50,13 @@ func (item *MenuItem) String() string {
 // newMenuItem returns a populated MenuItem object
 func newMenuItem(title string, tooltip string, parent *MenuItem) *MenuItem {
 	return &MenuItem{
-		ClickedCh: 		make(chan struct{}),
-		id:        		atomic.AddInt32(&currentID, 1),
-		title:     		title,
-		tooltip:   		tooltip,
-		disabled:  		false,
-		checked:   		false,
-		parent:    		parent,
+		ClickedCh: make(chan struct{}),
+		id:        atomic.AddInt32(&currentID, 1),
+		title:     title,
+		tooltip:   tooltip,
+		disabled:  false,
+		checked:   false,
+		parent:    parent,
 	}
 }
 
@@ -152,7 +151,7 @@ func (item *MenuItem) SetTooltip(tooltip string) {
 	item.update()
 }
 
-// Disabled checkes if the menu item is disabled
+// Disabled checks if the menu item is disabled
 func (item *MenuItem) Disabled() bool {
 	return item.disabled
 }
@@ -196,7 +195,7 @@ func (item *MenuItem) Uncheck() {
 	item.update()
 }
 
-// update propogates changes on a menu item to systray
+// update propagates changes on a menu item to systray
 func (item *MenuItem) update() {
 	menuItemsLock.Lock()
 	defer menuItemsLock.Unlock()
